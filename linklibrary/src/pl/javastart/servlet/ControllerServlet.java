@@ -1,4 +1,4 @@
-package pl.javastart.datasource.servlet;
+package pl.javastart.servlet;
 
 import java.io.IOException;
 

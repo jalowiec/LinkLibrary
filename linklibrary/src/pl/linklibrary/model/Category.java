@@ -7,7 +7,7 @@ package pl.linklibrary.model;
  */
 public class Category {
 
-	String categoryName;
+	private String categoryName;
 
 	public String getCategoryName() {
 		return categoryName;
@@ -21,7 +21,7 @@ public class Category {
 	}
 
 	public Category(String categoryName) {
-		// this.categoryId = categoryId;
+
 		this.categoryName = categoryName;
 	}
 
