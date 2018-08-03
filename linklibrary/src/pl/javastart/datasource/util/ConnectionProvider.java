@@ -20,7 +20,7 @@ public class ConnectionProvider {
 			try {
 				Context initContext = new InitialContext();
 				Context envContext = (Context) initContext.lookup("java:comp/env");
-				dataSource = (DataSource) envContext.lookup("jdbc/world");
+				dataSource = (DataSource) envContext.lookup("jdbc/linklibrary");
 			} catch (NamingException e) {
 				e.printStackTrace();
 			}

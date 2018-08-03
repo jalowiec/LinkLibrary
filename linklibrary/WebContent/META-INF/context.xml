@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
-	<Resource name="jdbc/world" 
+	<Resource name="jdbc/linklibrary" 
 	auth="Container" 
 	type="javax.sql.DataSource" 
 	initialSize="10" 
@@ -10,5 +10,5 @@
 	username="root" 
 	password="root" 
 	driverClassName="com.mysql.jdbc.Driver" 
-	url="jdbc:mysql://localhost:3306/world?serverTimezone=UTC" />
+	url="jdbc:mysql://localhost:3306/linklibrary?serverTimezone=UTC" />
 </Context>

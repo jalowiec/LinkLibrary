@@ -2,18 +2,27 @@ package pl.linklibrary.model;
 
 public class Link {
 	
+	private int id;
 	private String name;
 	private String description;
 	private String url;
 	
 	
-	public Link(String name, String description, String url) {
+	public Link(int id, String name, String description, String url) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.url = url;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Link() {}
 
 	public String getName() {

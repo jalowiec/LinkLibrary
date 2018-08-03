@@ -18,11 +18,11 @@
                <ul class="nav navbar-nav navbar-left">
                   <li><a href="index.jsp"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                </ul>
-               <form class="navbar-form navbar-right">
+               <form class="navbar-form navbar-right" action="addlink.jsp">
                   <div class="form-group">
                      <input type="text" class="form-control" placeholder="Add link">
                   </div>
-                  <button type="button" class="btn btn-default btn-lg">
+                  <button type="submit" class="btn btn-default btn-lg">              
                   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                   </button>
                </form>
@@ -35,7 +35,7 @@
       </nav>
       <div class="container">
       <div class="panel panel-default">
-         <div class="panel-heading">Wybierz kategorię:</div>
+         <div class="panel-heading">Kategorie:</div>
          <div class="panel-body">
             <p>
             <div class="container">          
@@ -43,10 +43,9 @@
     <button type="button" class="btn btn-primary">Java</button>
     <button type="button" class="btn btn-primary">Wzorce projektowe</button>
     <button type="button" class="btn btn-primary">Ksiązki informatyczne</button>
-    <button type="button" class="btn btn-primary">Java</button>
-    <button type="button" class="btn btn-primary">Wzorce projektowe</button>
+    <button type="button" class="btn btn-primary">PHP</button>
+    <button type="button" class="btn btn-primary">Bob Martin</button>
     <button type="button" class="btn btn-primary">Ksiązki do przeczytania</button>
-    <button type="button" class="btn btn-primary">Java</button>  
   </div>
 </div>
             </p>
