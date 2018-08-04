@@ -57,14 +57,11 @@ public class LinkList extends HttpServlet {
 		List<Link> linkList = new ArrayList<>();
 		LinkDAO dao = new LinkDAO();
 		linkList = dao.readAll(0);
-		System.out.println(linkList.size());
 		return linkList;
 	}
 
 	/*
-	 * 
-	 * 
-	 * 
+	
 
 
 	 * new Link("Christopher Okhravi - wzorce projektowe",

@@ -56,7 +56,7 @@ public class AddLink extends HttpServlet {
 	Link createLinkFromRequest(HttpServletRequest request) {
 		String linkName = request.getParameter("name");
 		String description = request.getParameter("description");
-		String url = request.getParameter("url");
+		String url = (String )request.getSession().getAttribute("url");
 		Link link = new Link(0, linkName, description, url);
 		return link;
 

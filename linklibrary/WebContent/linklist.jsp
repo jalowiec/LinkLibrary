@@ -18,9 +18,9 @@
                <ul class="nav navbar-nav navbar-left">
                   <li><a href="index.jsp"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                </ul>
-               <form class="navbar-form navbar-right" action="addlink.jsp">
+               <form class="navbar-form navbar-right" action="addlink.jsp" method="post">
                   <div class="form-group">
-                     <input type="text" class="form-control" placeholder="Add link">
+                     <input name="url" type="text" class="form-control" placeholder="Add link">
                   </div>
                   <button type="submit" class="btn btn-default btn-lg">              
                   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>

@@ -12,26 +12,33 @@
       <link href="css/styles.css" type="text/css" rel="stylesheet">
    </head>
    <body>
-
-<div class="container">
-  <h2>Dodawanie linku:</h2>
-  <form action="AddLink" method="post">
-  <div class="form-group">
-      <label for="adres_url">Adres url:</label>
-      <input type="text" class="form-control" id="link_url"  name="url">
-    </div>  
-    <div class="form-group">
-      <label for="link_name">Nazwa linku:</label>
-      <input type="text" class="form-control" id="link_name"  name="name">
-    </div>
- <div class="form-group">
-  <label for="comment">Opis linku:</label>
-  <textarea class="form-control" rows="3" id="comment" name="description"></textarea>
-</div> 
-
-    <button type="submit" class="btn btn-default">Dodaj</button>
-  </form>
-</div>
-
-</body>
+      <div class="container">
+         <h2>Dodawanie linku:</h2>
+         <form action="AddLink" method="post">
+            <div class="form-group">
+               <label for="adres_url">Adres url:</label> <input type="text"
+                  class="form-control"
+                  placeholder="<%= request.getParameter("url")%>"
+                  id="disabledTextInput" disabled>
+               <%! String url; %>
+               <%
+                  	url = request.getParameter("url");
+                  	session.setAttribute("url", url);
+                %>
+              
+            </div>
+            <div class="form-group">
+               <label for="link_name">Nazwa linku:</label> <input type="text"
+                  class="form-control" id="link_name" name="name">
+            </div>
+            <div class="form-group">
+               <label for="comment">Opis linku:</label>
+               <textarea class="form-control" rows="3" id="comment"
+                  name="description"></textarea>
+            </div>
+            <button type="submit" class="btn btn-default">Dodaj</button>
+         </form>
+      </div>
+   </body>
 </html>
+
