@@ -28,7 +28,7 @@ public class LinkDAO {
 			prepStmt = conn.prepareStatement(READ_ALL);
 			prepStmt.setInt(1, id);
 			resultSet = prepStmt.executeQuery();
-			if (resultSet.next()) {
+			while (resultSet.next()) {
 				resultLink = new Link();
 				resultLink.setId(resultSet.getInt("link_id"));
 				resultLink.setName(resultSet.getString("link_name"));

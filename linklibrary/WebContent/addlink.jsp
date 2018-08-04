@@ -15,18 +15,18 @@
 
 <div class="container">
   <h2>Dodawanie linku:</h2>
-  <form action="linklist.jsp">
+  <form action="AddLink" method="post">
   <div class="form-group">
-      <label for="email">Adres url:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      <label for="adres_url">Adres url:</label>
+      <input type="text" class="form-control" id="link_url"  name="url">
     </div>  
     <div class="form-group">
-      <label for="email">Nazwa linku:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      <label for="link_name">Nazwa linku:</label>
+      <input type="text" class="form-control" id="link_name"  name="name">
     </div>
  <div class="form-group">
   <label for="comment">Opis linku:</label>
-  <textarea class="form-control" rows="3" id="comment"></textarea>
+  <textarea class="form-control" rows="3" id="comment" name="description"></textarea>
 </div> 
 
     <button type="submit" class="btn btn-default">Dodaj</button>
