@@ -20,7 +20,7 @@
                </ul>
                <form class="navbar-form navbar-right" action="addlink.jsp" method="post">
                   <div class="form-group">
-                     <input name="url" type="text" class="form-control" placeholder="Add link">
+                     <input name="url" type="text" class="form-control" placeholder="Add link" required>
                   </div>
                   <button type="submit" class="btn btn-default btn-lg">              
                   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -38,16 +38,16 @@
          <div class="panel-heading">Kategorie:</div>
          <div class="panel-body">
             <p>
-            <div class="container">          
-  <div>
-    <button type="button" class="btn btn-primary">Java</button>
-    <button type="button" class="btn btn-primary">Wzorce projektowe</button>
-    <button type="button" class="btn btn-primary">Ksiązki informatyczne</button>
-    <button type="button" class="btn btn-primary">PHP</button>
-    <button type="button" class="btn btn-primary">Bob Martin</button>
-    <button type="button" class="btn btn-primary">Ksiązki do przeczytania</button>
-  </div>
-</div>
+            <div class="container">
+               <div>
+                  <button type="button" class="btn btn-primary">Java</button>
+                  <button type="button" class="btn btn-primary">Wzorce projektowe</button>
+                  <button type="button" class="btn btn-primary">Ksiązki informatyczne</button>
+                  <button type="button" class="btn btn-primary">PHP</button>
+                  <button type="button" class="btn btn-primary">Bob Martin</button>
+                  <button type="button" class="btn btn-primary">Ksiązki do przeczytania</button>
+               </div>
+            </div>
             </p>
          </div>
          <table class="table table-striped table-borderd" style="width: 100%" border="0">
@@ -61,14 +61,23 @@
                <td><%= link.getDescription() %></td>
                <td><a target="_blank" href="<%= link.getUrl() %>"><%= link.getUrl() %></a></td>
                <td>
-                  <button type="button" class="btn btn-default">
-                  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                  </button>
+                  <form action="editlink.jsp" method="post">
+                     <input type="hidden" name="link_id" value="<%= link.getId() %>" />               	   
+                     <input type="hidden" name="link_name" value="<%= link.getName() %>" />               	                  	   
+                     <input type="hidden" name="link_description" value="<%= link.getDescription() %>" />               	                  	                  	   
+                     <input type="hidden" name="link_url" value="<%= link.getUrl() %>" />               	                  	                  	   
+                     <button type="submit" class="btn btn-link">
+                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                     </button>
+                  </form>
                </td>
                <td>
-                  <button type="button" class="btn btn-default">
-                  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                  </button>
+                  <form action="DeleteLink" method="post">
+                     <input type="hidden" name="link_id" value="<%= link.getId() %>" />
+                     <button type="submit" class="btn btn-link" onclick="return confirm('Link: <%= link.getUrl() %> zostanie usunięty')">          	                  		  
+                     <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
+                     </button>
+                  </form>
                </td>
             </tr>
             <%
@@ -76,6 +85,11 @@
                %>
          </table>
       </div>
+      <script>
+         function deleteLink(linkToDelete) {
+         	document.write(linkToDelete);
+         }
+      </script>
       <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
       <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
       <script src="js/bootstrap.js"></script>
