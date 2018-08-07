@@ -1,4 +1,4 @@
-package pl.javastart.servlet;
+package pl.linklibrary.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,19 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pl.javastart.dao.LinkDAO;
+import pl.linklibrary.dao.LinkDAO;
 
 /**
- * Servlet implementation class login
+ * Servlet implementation class DeleteLink
  */
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+@WebServlet("/DeleteLink")
+public class DeleteLink extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Login() {
+	public DeleteLink() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -27,6 +27,9 @@ public class Login extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		int linkId = Integer.parseInt(request.getParameter("link_id"));
+		LinkDAO dao = new LinkDAO();
+		dao.delete(linkId);
 		request.getRequestDispatcher("LinkList").include(request, response);
 
 	}
@@ -38,6 +41,7 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		processRequest(request, response);
 	}
 
@@ -50,6 +54,7 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		processRequest(request, response);
+
 	}
 
 }

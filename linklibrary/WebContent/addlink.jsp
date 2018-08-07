@@ -17,15 +17,12 @@
          <form action="AddLink" method="post">
             <div class="form-group">
                <label for="adres_url">Adres url:</label> <input type="text"
-                  class="form-control"
-                  placeholder="<%= request.getParameter("url")%>"
-                  id="disabledTextInput" disabled>
-               <%! String url; %>
-               <%
-                  	url = request.getParameter("url");
-                  	session.setAttribute("url", url);
-                %>
-              
+                  class="form-control"                  
+                  value="<%= request.getParameter("url")%>"
+                  name="url"
+                  id="disabledTextInput"
+                   readonly>
+             
             </div>
             <div class="form-group">
                <label for="link_name">Nazwa linku:</label> <input type="text"

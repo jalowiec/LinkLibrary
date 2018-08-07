@@ -1,29 +1,25 @@
-package pl.javastart.servlet;
+package pl.linklibrary.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pl.javastart.dao.LinkDAO;
-import pl.linklibrary.model.Link;
+import pl.linklibrary.dao.LinkDAO;
 
 /**
- * Servlet implementation class AddLink
+ * Servlet implementation class login
  */
-@WebServlet("/AddLink")
-public class AddLink extends HttpServlet {
+@WebServlet("/Login")
+public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddLink() {
+	public Login() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -31,20 +27,7 @@ public class AddLink extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Link link = createLinkFromRequest(request);
-		LinkDAO dao = new LinkDAO();
-		dao.create(link);
-		request.getRequestDispatcher("LinkList").forward(request, response);
-
-	}
-
-	Link createLinkFromRequest(HttpServletRequest request) {
-
-		String linkName = request.getParameter("name");
-		String description = request.getParameter("description");
-		String url = (String) request.getSession().getAttribute("url");
-		Link link = new Link(0, linkName, description, url);
-		return link;
+		request.getRequestDispatcher("LinkList").include(request, response);
 
 	}
 
@@ -56,7 +39,6 @@ public class AddLink extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		processRequest(request, response);
-
 	}
 
 	/**
@@ -66,7 +48,8 @@ public class AddLink extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		processRequest(request, response);
 
+		processRequest(request, response);
 	}
+
 }

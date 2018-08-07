@@ -85,12 +85,7 @@
                %>
          </table>
       </div>
-      <script>
-         function deleteLink(linkToDelete) {
-         	document.write(linkToDelete);
-         }
-      </script>
-      <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+       <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
       <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
       <script src="js/bootstrap.js"></script>
    </body>

@@ -1,4 +1,4 @@
-package pl.javastart.dao;
+package pl.linklibrary.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.linklibrary.datasource.util.ConnectionProvider;
 import pl.linklibrary.model.Link;
-import pl.javastart.datasource.util.ConnectionProvider;
 
 public class LinkDAO {
 
@@ -81,7 +81,7 @@ public class LinkDAO {
 			prepStmt.setString(1, link.getName());
 			prepStmt.setString(2, link.getUrl());
 			prepStmt.setString(3, link.getDescription());
-			prepStmt.setInt(4, link.getId());
+			prepStmt.setInt(4, 0);
 			int rowsAffected = prepStmt.executeUpdate();
 			if (rowsAffected > 0) {
 				result = true;
@@ -120,10 +120,12 @@ public class LinkDAO {
 		boolean result = false;
 		try {
 			conn = ConnectionProvider.getConnection();
+			conn = ConnectionProvider.getConnection();
 			prepStmt = conn.prepareStatement(UPDATE);
 			prepStmt.setString(1, link.getName());
 			prepStmt.setString(2, link.getUrl());
 			prepStmt.setString(3, link.getDescription());
+			prepStmt.setInt(4, link.getId());			
 			int rowsAffected = prepStmt.executeUpdate();
 			if (rowsAffected > 0) {
 				result = true;

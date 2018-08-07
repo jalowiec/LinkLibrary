@@ -10,6 +10,14 @@ public class Link {
 	
 	public Link(int id, String name, String description, String url) {
 		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.url = url;
+	}
+	
+	public Link(String name, String description, String url) {
+		super();
 		this.name = name;
 		this.description = description;
 		this.url = url;

@@ -1,25 +1,30 @@
-package pl.javastart.servlet;
+package pl.linklibrary.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pl.javastart.dao.LinkDAO;
+import pl.linklibrary.dao.LinkDAO;
+import pl.linklibrary.model.Link;
+
 
 /**
- * Servlet implementation class DeleteLink
+ * Servlet implementation class AddLink
  */
-@WebServlet("/DeleteLink")
-public class DeleteLink extends HttpServlet {
+@WebServlet("/AddLink")
+public class AddLink extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public DeleteLink() {
+	public AddLink() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -27,12 +32,24 @@ public class DeleteLink extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int linkId = Integer.parseInt(request.getParameter("link_id"));
+		Link link = linkToAddFromRequest(request);
 		LinkDAO dao = new LinkDAO();
-		dao.delete(linkId);
-		request.getRequestDispatcher("LinkList").include(request, response);
+		dao.create(link);
+		request.getRequestDispatcher("LinkList").forward(request, response);
+	}
+
+	
+	public static Link linkToAddFromRequest(HttpServletRequest request) {
+
+		String linkName = request.getParameter("name");
+		String description = request.getParameter("description");
+		String url = request.getParameter("url");
+		Link link = new Link(linkName, description, url);
+
+		return link;
 
 	}
+	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -41,8 +58,8 @@ public class DeleteLink extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
 		processRequest(request, response);
+
 	}
 
 	/**
@@ -52,9 +69,7 @@ public class DeleteLink extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 		processRequest(request, response);
 
 	}
-
 }

@@ -1,4 +1,4 @@
-package pl.javastart.servlet;
+package pl.linklibrary.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pl.javastart.dao.LinkDAO;
+import pl.linklibrary.dao.LinkDAO;
 import pl.linklibrary.model.Link;
+
 
 /**
  * Servlet implementation class EditLink
@@ -31,20 +32,24 @@ public class EditLink extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int linkId = Integer.parseInt(request.getParameter("link_id"));
+		Link link = linkToEditFromRequest(request); 
 		LinkDAO dao = new LinkDAO();
-		Link link = dao.read(linkId);
-		
-		
+		dao.update(link);
 		request.getRequestDispatcher("LinkList").include(request, response);
-
-		
-				
-
 
 	}	
 
-    
+	public static Link linkToEditFromRequest(HttpServletRequest request) {
+
+		String linkName = request.getParameter("name");
+		String description = request.getParameter("description");
+		String url = request.getParameter("url");
+		int url_id = Integer.parseInt(request.getParameter("link_id"));
+		Link link = new Link(url_id, linkName, description, url);
+		
+		return link;
+
+	}    
     
 
 	/**

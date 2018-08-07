@@ -1,4 +1,4 @@
-package pl.javastart.datasource.util;
+package pl.linklibrary.datasource.util;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
