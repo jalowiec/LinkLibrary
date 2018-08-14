@@ -2,6 +2,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
    <head>
@@ -21,8 +22,7 @@
                   value="<%= request.getParameter("url")%>"
                   name="url"
                   id="disabledTextInput"
-                   readonly>
-             
+                  readonly>
             </div>
             <div class="form-group">
                <label for="link_name">Nazwa linku:</label> <input type="text"
@@ -33,6 +33,7 @@
                <textarea class="form-control" rows="3" id="comment"
                   name="description"></textarea>
             </div>
+    
             <button type="submit" class="btn btn-default">Dodaj</button>
          </form>
       </div>

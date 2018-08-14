@@ -37,7 +37,6 @@ public class LinkList extends HttpServlet {
 		request.setAttribute("linkList", linkList);
 		request.getRequestDispatcher("linklist.jsp").forward(request, response);
 
-
 	}	
 
 	List<Link> getLinks() {

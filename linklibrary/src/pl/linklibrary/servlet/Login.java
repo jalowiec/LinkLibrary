@@ -26,9 +26,7 @@ public class Login extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		request.getRequestDispatcher("LinkList").include(request, response);
-
+		response.sendRedirect("LinkList");
 	}
 
 	/**

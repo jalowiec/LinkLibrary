@@ -10,7 +10,8 @@
       <link href="css/bootstrap.min.css" rel="stylesheet">
       <link href="css/styles.min.css" rel="stylesheet">
       <title>Wszystkie linki</title>
-   </head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
    <body>
       <nav class="navbar navbar-default">
          <div class="container">
@@ -57,27 +58,35 @@
                	for(Link link: linkList) {
                %>
             <tr>
+               <td><a target="_blank" href="<%= link.getUrl() %>"><%= link.getUrl() %></a></td>
                <td><%= link.getName() %></td>
                <td><%= link.getDescription() %></td>
-               <td><a target="_blank" href="<%= link.getUrl() %>"><%= link.getUrl() %></a></td>
                <td>
                   <form action="editlink.jsp" method="post">
                      <input type="hidden" name="link_id" value="<%= link.getId() %>" />               	   
                      <input type="hidden" name="link_name" value="<%= link.getName() %>" />               	                  	   
                      <input type="hidden" name="link_description" value="<%= link.getDescription() %>" />               	                  	                  	   
                      <input type="hidden" name="link_url" value="<%= link.getUrl() %>" />               	                  	                  	   
-                     <button type="submit" class="btn btn-link">
-                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                     <button type="submit" class="btn btn-link" title="Edit link">
+                     <span class="glyphicon glyphicon-edit" aria-hidden="true" ></span>
                      </button>
                   </form>
                </td>
                <td>
-                  <form action="DeleteLink" method="post">
+               <form action="AddCategoryToLink" method="post">
+                     <input type="hidden" name="link_id" value="<%= link.getId() %>" />
+                     <button type="submit" class="btn btn-link">          	                  		  
+                     <span class="glyphicon glyphicon-tags" aria-hidden="true" ></span>
+                     </button>
+			</form>
+			</td> 
+			<td>            
+                <form action="DeleteLink" method="post">
                      <input type="hidden" name="link_id" value="<%= link.getId() %>" />
                      <button type="submit" class="btn btn-link" onclick="return confirm('Link: <%= link.getUrl() %> zostanie usunięty')">          	                  		  
                      <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
                      </button>
-                  </form>
+			</form>                 
                </td>
             </tr>
             <%
@@ -85,7 +94,7 @@
                %>
          </table>
       </div>
-       <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+      <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
       <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
       <script src="js/bootstrap.js"></script>
    </body>

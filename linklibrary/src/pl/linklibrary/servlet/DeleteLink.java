@@ -30,8 +30,7 @@ public class DeleteLink extends HttpServlet {
 		int linkId = Integer.parseInt(request.getParameter("link_id"));
 		LinkDAO dao = new LinkDAO();
 		dao.delete(linkId);
-		request.getRequestDispatcher("LinkList").include(request, response);
-
+		response.sendRedirect("LinkList");
 	}
 
 	/**

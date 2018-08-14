@@ -35,7 +35,7 @@ public class AddLink extends HttpServlet {
 		Link link = linkToAddFromRequest(request);
 		LinkDAO dao = new LinkDAO();
 		dao.create(link);
-		request.getRequestDispatcher("LinkList").forward(request, response);
+		response.sendRedirect("LinkList");
 	}
 
 	
