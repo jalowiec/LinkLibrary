@@ -73,8 +73,9 @@
                   </form>
                </td>
                <td>
-               <form action="AddCategoryToLink" method="post">
-                     <input type="hidden" name="link_id" value="<%= link.getId() %>" />
+               <form action="GetLinkCategory" method="post">
+                     <input type="hidden" name="link_id" value="<%= link.getId() %>" />   
+                     <input type="hidden" name="link_url" value="<%= link.getUrl() %>" />
                      <button type="submit" class="btn btn-link">          	                  		  
                      <span class="glyphicon glyphicon-tags" aria-hidden="true" ></span>
                      </button>
