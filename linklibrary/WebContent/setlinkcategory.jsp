@@ -2,7 +2,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, pl.linklibrary.model.Category"%>
+<%@ page import="java.util.Set, pl.linklibrary.model.Category"%>
 <!DOCTYPE html>
 <html>
    <head>
@@ -29,16 +29,22 @@
             <label for="exampleSelect2">Wybrane kategorie:</label>
             <select name="categories" multiple class="form-control">
                <%
-                  List<Category> categoriesList = (List<Category>)request.getAttribute("categoriesList");
-                  
-                  if(categoriesList != null){
-                  	for(Category category: categoriesList) {
-                  %>
-               <option value="<%= category.getCategoryId() %>"> <%= category.getCategoryName() %></option>
+                  Set<Category> categories = (Set<Category>)request.getAttribute("categories");
+                  Set<Integer> linkCategories = (Set<Integer>)request.getAttribute("linkCategories");
+ 
+                  if(categories != null){
+                	for(Category category: categories) {
+                		if(linkCategories.contains(category.getCategoryId())){ 	
+                %>
+                	<option selected="selected" value="<%= category.getCategoryId() %>"> <%= category.getCategoryName() %></option>
+                <% } else
+                {
+                %>
+                	               		  
+               		<option  value="<%= category.getCategoryId() %>"> <%= category.getCategoryName() %></option>
                <%
-                  }}
+                  }}}
                   %>
-                  <option value=14>opcja nowa</option>
             </select>
          </div>
          <button type="submit" class="btn btn-default">Dodaj</button>

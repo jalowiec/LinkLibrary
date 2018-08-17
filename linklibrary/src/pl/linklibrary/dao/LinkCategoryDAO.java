@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import pl.linklibrary.datasource.util.ConnectionProvider;
 import pl.linklibrary.model.Link;
@@ -13,38 +15,35 @@ import pl.linklibrary.model.Link;
 public class LinkCategoryDAO {
 
 	private final static String CREATE = "INSERT INTO link_category(link_id, category_id) VALUES(?, ?);";
+	private final static String DELETE = "DELETE FROM link_category WHERE link_id=?;";
+	private final static String READ_CATEGORY = "SELECT category_id FROM link_category WHERE link_id = ?;";	
 
 	private final static String READ_ALL = "SELECT link_id, link_name, url, description FROM link WHERE user_id = ? ORDER BY link_id DESC;";
-	private final static String READ = "SELECT link_id, link_name, url, description FROM link WHERE link_id = ?;";
-	private final static String DELETE = "DELETE FROM link WHERE link_id=?;";
+
+
 	private final static String UPDATE = "UPDATE link SET link_name=?, url=?, description=? WHERE link_id = ?;";
 
-	public List<Link> readAll(int id) {
+	public Set<Integer> readLinkCategories(int id) {
 
-		List<Link> linkList = new ArrayList<>();
+		Set<Integer> categorySet = new HashSet<>();
 		Connection conn = null;
 		PreparedStatement prepStmt = null;
 		ResultSet resultSet = null;
 		Link resultLink = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			prepStmt = conn.prepareStatement(READ_ALL);
+			prepStmt = conn.prepareStatement(READ_CATEGORY);
 			prepStmt.setInt(1, id);
 			resultSet = prepStmt.executeQuery();
 			while (resultSet.next()) {
-				resultLink = new Link();
-				resultLink.setId(resultSet.getInt("link_id"));
-				resultLink.setName(resultSet.getString("link_name"));
-				resultLink.setUrl(resultSet.getString("url"));
-				resultLink.setDescription(resultSet.getString("description"));
-				linkList.add(resultLink);
+				categorySet.add(resultSet.getInt("category_id"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			releaseResources(prepStmt, resultSet, conn);
 		}
-		return linkList;
+		return categorySet;
 	}
 
 	public Link read(int linkId) {
@@ -54,7 +53,7 @@ public class LinkCategoryDAO {
 		Link resultLink = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			prepStmt = conn.prepareStatement(READ);
+			prepStmt = conn.prepareStatement(READ_ALL);
 			prepStmt.setInt(1, linkId);
 			resultSet = prepStmt.executeQuery();
 			if (resultSet.next()) {
@@ -72,7 +71,7 @@ public class LinkCategoryDAO {
 		return resultLink;
 	}
 
-	public boolean create(String linkId, String[] categoriesList ) {
+	public boolean create(int linkId,int[] categoriesList ) {
 		Connection conn = null;
 		PreparedStatement prepStmt = null;
 		boolean result = false;
@@ -80,9 +79,9 @@ public class LinkCategoryDAO {
 			conn = ConnectionProvider.getConnection();
 			prepStmt = conn.prepareStatement(CREATE);
 			int rowsAffected = 0;
-			for(String category : categoriesList) {
-				prepStmt.setString(1, linkId);
-				prepStmt.setString(2, category);
+			for(int category : categoriesList) {
+				prepStmt.setInt(1, linkId);
+				prepStmt.setInt(2, category);
 			rowsAffected = prepStmt.executeUpdate();			
 			}
 			if (rowsAffected > 0) {
