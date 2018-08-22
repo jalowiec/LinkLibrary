@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import pl.linklibrary.datasource.util.ConnectionProvider;
 import pl.linklibrary.model.Category;
@@ -23,7 +25,7 @@ public class CategoryDAO {
 
 	public Set<Category> readAll(int user_id) {
 
-		Set<Category> categoryList = new HashSet<>();
+		Set<Category> categoryList = new TreeSet<>();
 		Connection conn = null;
 		PreparedStatement prepStmt = null;
 		ResultSet resultSet = null;

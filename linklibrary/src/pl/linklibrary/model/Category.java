@@ -5,7 +5,7 @@ package pl.linklibrary.model;
  *
  * @author lukasz
  */
-public class Category {
+public class Category implements Comparable<Category> {
 
 	private int categoryId;
 	private String categoryName;
@@ -32,6 +32,12 @@ public class Category {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+
+	@Override
+	public int compareTo(Category category) {
+		return this.categoryName.compareTo(category.getCategoryName());
+	}
+
 
 
 

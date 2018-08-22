@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import pl.linklibrary.datasource.util.ConnectionProvider;
 import pl.linklibrary.model.Link;
@@ -18,9 +21,9 @@ public class LinkDAO {
 	private final static String DELETE = "DELETE FROM link WHERE link_id=?;";
 	private final static String UPDATE = "UPDATE link SET link_name=?, url=?, description=? WHERE link_id = ?;";
 
-	public List<Link> readAll(int id) {
+	public Set<Link> readAll(int id) {
 
-		List<Link> linkList = new ArrayList<>();
+		Set<Link> linkList = new LinkedHashSet<>();
 		Connection conn = null;
 		PreparedStatement prepStmt = null;
 		ResultSet resultSet = null;

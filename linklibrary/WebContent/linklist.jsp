@@ -2,16 +2,19 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, pl.linklibrary.model.Link"%>
+<%@ page import="java.util.List, java.util.Set, pl.linklibrary.model.Link, pl.linklibrary.model.Category"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
    <head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="Content-Script-Type" content="text/javascript">
       <link href="css/bootstrap.min.css" rel="stylesheet">
       <link href="css/styles.min.css" rel="stylesheet">
+      <link href="css/bootstrap-toggle.min.css" rel="stylesheet">
       <title>Wszystkie linki</title>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    </head>
+      <script src="js/bootstrap-toggle.min.js"></script>
+   </head>
    <body>
       <nav class="navbar navbar-default">
          <div class="container">
@@ -36,68 +39,93 @@
       </nav>
       <div class="container">
       <div class="panel panel-default">
-         <div class="panel-heading">Kategorie:</div>
-         <div class="panel-body">
-            <p>
-            <div class="container">
-               <div>
-                  <button type="button" class="btn btn-primary">Java</button>
-                  <button type="button" class="btn btn-primary">Wzorce projektowe</button>
-                  <button type="button" class="btn btn-primary">Ksiązki informatyczne</button>
-                  <button type="button" class="btn btn-primary">PHP</button>
-                  <button type="button" class="btn btn-primary">Bob Martin</button>
-                  <button type="button" class="btn btn-primary">Ksiązki do przeczytania</button>
-               </div>
-            </div>
-            </p>
+         <div class="panel-heading">
+            <h3 class="panel-title">Kategorie:</h3>
+         </div>
+         <div class="panel-body">       
+            <div class="btn-group-toggle" data-toggle="buttons-checkbox"> 
+               <form action="LinkList" method="post">
+               <%
+               Set<Integer> chosenCategories = (Set<Integer>)request.getAttribute("chosenCategories");   
+               Set<Category> categories = (Set<Category>)request.getAttribute("categories");
+                  if(categories != null){
+                  	for(Category category: categories) {
+                  		if(chosenCategories!=null && chosenCategories.contains(category.getCategoryId())){
+                  %>
+               <label class="btn btn-light">
+               <input type="checkbox" name="chosenCategories" checked="checked" value="<%= category.getCategoryId() %>" onclick="this.form.submit();")">&nbsp <%= category.getCategoryName() %>
+               </label>
+               <%
+                  } else {
+                  %>
+               <label class="btn btn-light">
+               <input type="checkbox" name="chosenCategories"  value="<%= category.getCategoryId() %>" onclick="this.form.submit();")">&nbsp <%= category.getCategoryName() %>
+               </label>                  
+               <%
+                  }}}
+                  %>
+		</form>                  
+            </div>         
+
          </div>
          <table class="table table-striped table-borderd" style="width: 100%" border="0">
+            <thead>
+               <tr>
+                  <th>Adres url</th>
+                  <th>Nazwa linku</th>
+                  <th>Opis linku</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+               </tr>
+            </thead>
             <%
-               List<Link> linkList = (List<Link>)request.getAttribute("linkList");
-               if(linkList != null)
-               	for(Link link: linkList) {
+               Set<Link> links = (Set<Link>)request.getAttribute("links");
+               if(links != null)
+               	for(Link eachLink: links) {
                %>
             <tr>
-               <td><a target="_blank" href="<%= link.getUrl() %>"><%= link.getUrl() %></a></td>
-               <td><%= link.getName() %></td>
-               <td><%= link.getDescription() %></td>
+               <td><a target="_blank" href="<%= eachLink.getUrl() %>"><%= eachLink.getUrl() %></a></td>
+               <td><%= eachLink.getName() %></td>
+               <td><%= eachLink.getDescription() %></td>
                <td>
                   <form action="editlink.jsp" method="post">
-                     <input type="hidden" name="link_id" value="<%= link.getId() %>" />               	   
-                     <input type="hidden" name="link_name" value="<%= link.getName() %>" />               	                  	   
-                     <input type="hidden" name="link_description" value="<%= link.getDescription() %>" />               	                  	                  	   
-                     <input type="hidden" name="link_url" value="<%= link.getUrl() %>" />               	                  	                  	   
+                     <input type="hidden" name="link_id" value="<%= eachLink.getId() %>" />               	   
+                     <input type="hidden" name="link_name" value="<%= eachLink.getName() %>" />               	                  	   
+                     <input type="hidden" name="link_description" value="<%= eachLink.getDescription() %>" />               	                  	                  	   
+                     <input type="hidden" name="link_url" value="<%= eachLink.getUrl() %>" />               	                  	                  	   
                      <button type="submit" class="btn btn-link" title="Edit link">
                      <span class="glyphicon glyphicon-edit" aria-hidden="true" ></span>
                      </button>
                   </form>
                </td>
                <td>
-               <form action="GetLinkCategory" method="post">
-                     <input type="hidden" name="link_id" value="<%= link.getId() %>" />   
-                     <input type="hidden" name="link_url" value="<%= link.getUrl() %>" />
+                  <form action="GetLinkCategory" method="post">
+                     <input type="hidden" name="link_id" value="<%= eachLink.getId() %>" />   
+                     <input type="hidden" name="link_url" value="<%= eachLink.getUrl() %>" />
                      <button type="submit" class="btn btn-link">          	                  		  
                      <span class="glyphicon glyphicon-tags" aria-hidden="true" ></span>
                      </button>
-			</form>
-			</td> 
-			<td>            
-                <form action="DeleteLink" method="post">
-                     <input type="hidden" name="link_id" value="<%= link.getId() %>" />
-                     <button type="submit" class="btn btn-link" onclick="return confirm('Link: <%= link.getUrl() %> zostanie usunięty')">          	                  		  
+                  </form>
+               </td>
+               <td>
+                  <form action="DeleteLink" method="post">
+                     <input type="hidden" name="link_id" value="<%= eachLink.getId() %>" />
+                     <button type="submit" class="btn btn-link" onclick="return confirm('Link: <%= eachLink.getUrl() %> zostanie usunięty')">          	                  		  
                      <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
                      </button>
-			</form>                 
+                  </form>
                </td>
             </tr>
             <%
                }
                %>
          </table>
+         
       </div>
-      <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+          <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
       <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
       <script src="js/bootstrap.js"></script>
-   </body>
+    </body>
 </html>
 

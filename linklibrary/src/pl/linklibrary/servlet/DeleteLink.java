@@ -31,7 +31,7 @@ public class DeleteLink extends HttpServlet {
 		LinkDAO dao = new LinkDAO();
 		dao.delete(linkId);
 		response.sendRedirect("LinkList");
-	}
+	}	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
