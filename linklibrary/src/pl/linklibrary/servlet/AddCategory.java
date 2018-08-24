@@ -7,35 +7,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import pl.linklibrary.dao.CategoryDAO;
+import pl.linklibrary.dao.LinkDAO;
+import pl.linklibrary.model.Link;
+
 /**
- * Servlet implementation class LinksFilter
+ * Servlet implementation class AddCategory
  */
-@WebServlet("/LinksFilter")
-public class LinksFilter extends HttpServlet {
+@WebServlet("/AddCategory")
+public class AddCategory extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LinksFilter() {
+    public AddCategory() {
         super();
         // TODO Auto-generated constructor stub
     }
 
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String category = request.getParameter("category");
+		CategoryDAO dao = new CategoryDAO();
+		dao.create(category);		
+		response.sendRedirect("LinkList");
+	}
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String[] categories = request.getParameterValues("categories");
-		int[] categoriesFilter = new int[categories.length];
-		int i = 0;
-		for(String eachCategory : categories) {
-			categoriesFilter[i++]=Integer.parseInt(eachCategory);
-		}
-		request.setAttribute("categoriesFilter", categoriesFilter  );
-		request.getRequestDispatcher("linklist.jsp").forward(request, response);
-		
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -43,7 +48,7 @@ public class LinksFilter extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		processRequest(request, response);
 	}
 
 }

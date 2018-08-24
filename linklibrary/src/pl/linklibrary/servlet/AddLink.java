@@ -39,7 +39,7 @@ public class AddLink extends HttpServlet {
 	}
 
 	
-	public static Link linkToAddFromRequest(HttpServletRequest request) {
+	protected static Link linkToAddFromRequest(HttpServletRequest request) {
 
 		String linkName = request.getParameter("name");
 		String description = request.getParameter("description");

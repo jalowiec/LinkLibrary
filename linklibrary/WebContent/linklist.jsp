@@ -40,14 +40,18 @@
       <div class="container">
       <div class="panel panel-default">
          <div class="panel-heading">
-            <h3 class="panel-title">Kategorie:</h3>
+       <div class="btn-group pull-right">
+        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modalCategoryManager">Zarzadzaj</button>
+
+      </div>
+            <h4 class="panel-title">Kategorie:</h4>
          </div>
          <div class="panel-body">       
             <div class="btn-group-toggle" data-toggle="buttons-checkbox"> 
                <form action="LinkList" method="post">
-               <%
+               <%               
                Set<Integer> chosenCategories = (Set<Integer>)request.getAttribute("chosenCategories");   
-               Set<Category> categories = (Set<Category>)request.getAttribute("categories");
+               Set<Category> categories = (Set<Category>)request.getAttribute("allCategories");
                   if(categories != null){
                   	for(Category category: categories) {
                   		if(chosenCategories!=null && chosenCategories.contains(category.getCategoryId())){
@@ -62,11 +66,13 @@
                <input type="checkbox" name="chosenCategories"  value="<%= category.getCategoryId() %>" onclick="this.form.submit();")">&nbsp <%= category.getCategoryName() %>
                </label>                  
                <%
-                  }}}
-                  %>
-		</form>                  
+                  		}
+                  	}   	                  	
+                }
+                   
+                 %>
+			</form>                  
             </div>         
-
          </div>
          <table class="table table-striped table-borderd" style="width: 100%" border="0">
             <thead>
@@ -80,7 +86,7 @@
                </tr>
             </thead>
             <%
-               Set<Link> links = (Set<Link>)request.getAttribute("links");
+               Set<Link> links = (Set<Link>)request.getAttribute("linksToDisplay");
                if(links != null)
                	for(Link eachLink: links) {
                %>
@@ -123,7 +129,49 @@
          </table>
          
       </div>
-          <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+              <div class="modal fade" id="modalCategoryManager" tabindex="-1" role="dialog" aria-labelledby="modalCategoryManagerTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCategoryManagerLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+ 
+      <div class="modal-body">
+               <form action="AddCategory" method="post" class="form-inline">       
+                     <input name="category" type="text" class="form-control" placeholder="Dodaj kategorie" required style="width: 450px;">
+                     <button type="submit" class="btn btn-default">Dodaj</button>
+               </form>
+                 <hr>
+               <form action="DeleteCategories" method="post" class="form-inline">
+               <select name="categories" multiple class="form-control" size='10' style="width: 450px;">
+                  <%
+    
+                     if(categories != null){
+                   	for(Category category: categories) {
+
+                   %>
+                   	              		  
+                  		<option  value="<%= category.getCategoryId() %>"> <%= category.getCategoryName() %></option>
+                  <%
+                     }}
+                     %>
+               </select>
+               <button type="submit" class="btn btn-default">Usun</button>
+               </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+      
+      
+      <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
       <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
       <script src="js/bootstrap.js"></script>
     </body>
