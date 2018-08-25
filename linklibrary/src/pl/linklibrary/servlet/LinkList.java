@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -41,6 +42,7 @@ public class LinkList extends HttpServlet {
 		Util util = new Util();
 		Set<Link> allLinks = util.getAllLinks();
 		Set<Category> allCategories = util.getAllCategories();
+		Map<Integer, Integer> linksForCategoryCounter = util.countLinksForCategory();
 		String[] chosenFormsCategories = request.getParameterValues("chosenCategories");
 		Set<Integer> chosenCategories = null;
 		if (chosenFormsCategories != null) {
@@ -51,6 +53,7 @@ public class LinkList extends HttpServlet {
 		request.setAttribute("chosenCategories", chosenCategories);
 		request.setAttribute("allCategories", allCategories);
 		request.setAttribute("linksToDisplay", linksToDisplay);
+		request.setAttribute("linksForCategoryCounter", linksForCategoryCounter);		
 		request.getRequestDispatcher("linklist.jsp").forward(request, response);
 
 	}

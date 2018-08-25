@@ -1,6 +1,8 @@
 package pl.linklibrary.util;
 
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -13,24 +15,27 @@ import pl.linklibrary.model.Link;
 public class Util {
 
 	public Set<Category> getAllCategories() {
-		Set<Category> results = new TreeSet<>();
 		CategoryDAO dao = new CategoryDAO();
-		results = dao.readAll(0);
+		Set<Category>results = dao.readAll(0);
 		return results;
 	}
 
 	public Set<Integer> getCategoriesIdForLink(int linkId) {
-		Set<Integer> results = new TreeSet<>();
 		LinkCategoryDAO dao = new LinkCategoryDAO();
-		results = dao.readLinkCategories(linkId);
+		Set<Integer> results = dao.readLinkCategories(linkId);
 		return results;
 	}
 
 	public Set<Link> getAllLinks() {
-		Set<Link> results = new LinkedHashSet<>();
 		LinkDAO dao = new LinkDAO();
-		results = dao.readAll(0);
+		Set<Link> results= dao.readAll(0);
 		return results;
+	}
+	
+	public Map<Integer, Integer> countLinksForCategory(){
+		LinkCategoryDAO dao = new LinkCategoryDAO();
+		Map<Integer, Integer> result = dao.countLinksForCategories();
+		return result;
 	}
 
 	public int[] convertArray(String[] array) {

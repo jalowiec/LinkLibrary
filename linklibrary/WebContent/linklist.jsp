@@ -2,7 +2,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, java.util.Set, pl.linklibrary.model.Link, pl.linklibrary.model.Category"%>
+<%@ page import="java.util.Map, java.util.Set, pl.linklibrary.model.Link, pl.linklibrary.model.Category"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
    <head>
@@ -52,23 +52,26 @@
                <%               
                Set<Integer> chosenCategories = (Set<Integer>)request.getAttribute("chosenCategories");   
                Set<Category> categories = (Set<Category>)request.getAttribute("allCategories");
+               Map<Integer, Integer>linksForCategoryCounter = (Map<Integer, Integer>)request.getAttribute("linksForCategoryCounter");
                   if(categories != null){
                   	for(Category category: categories) {
-                  		if(chosenCategories!=null && chosenCategories.contains(category.getCategoryId())){
-                  %>
+               %>
                <label class="btn btn-light">
-               <input type="checkbox" name="chosenCategories" checked="checked" value="<%= category.getCategoryId() %>" onclick="this.form.submit();")">&nbsp <%= category.getCategoryName() %>
+                   <input type="checkbox" name="chosenCategories" value="<%= category.getCategoryId() %>" onclick="this.form.submit();"
+               <%
+                  		if(chosenCategories!=null && chosenCategories.contains(category.getCategoryId())){
+               %>
+               		checked="checked"
+               <%
+                  } 
+               %>
+               		
+               >&nbsp <%= category.getCategoryName() %>
+               <span class="badge"><%= linksForCategoryCounter.get(category.getCategoryId()) %>            
                </label>
                <%
-                  } else {
-                  %>
-               <label class="btn btn-light">
-               <input type="checkbox" name="chosenCategories"  value="<%= category.getCategoryId() %>" onclick="this.form.submit();")">&nbsp <%= category.getCategoryName() %>
-               </label>                  
-               <%
-                  		}
-                  	}   	                  	
-                }
+                  } 
+           		}           	
                    
                  %>
 			</form>                  

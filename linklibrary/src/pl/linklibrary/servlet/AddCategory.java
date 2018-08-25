@@ -30,6 +30,7 @@ public class AddCategory extends HttpServlet {
 			throws ServletException, IOException {
 
 		String category = request.getParameter("category");
+		category.toLowerCase();
 		CategoryDAO dao = new CategoryDAO();
 		dao.create(category);		
 		response.sendRedirect("LinkList");
