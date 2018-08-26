@@ -42,7 +42,7 @@ public class LinkList extends HttpServlet {
 		Util util = new Util();
 		Set<Link> allLinks = util.getAllLinks();
 		Set<Category> allCategories = util.getAllCategories();
-		Map<Integer, Integer> linksForCategoryCounter = util.countLinksForCategory();
+		Map<Integer, Integer> linksForCategoryCounter = util.countLinksForAllCategories();
 		String[] chosenFormsCategories = request.getParameterValues("chosenCategories");
 		Set<Integer> chosenCategories = null;
 		if (chosenFormsCategories != null) {

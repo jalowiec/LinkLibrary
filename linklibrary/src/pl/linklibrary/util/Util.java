@@ -32,9 +32,20 @@ public class Util {
 		return results;
 	}
 	
-	public Map<Integer, Integer> countLinksForCategory(){
+	public Map<Integer, Integer> countLinksForAllCategories(){
 		LinkCategoryDAO dao = new LinkCategoryDAO();
-		Map<Integer, Integer> result = dao.countLinksForCategories();
+		Map<Integer, Integer> counterLinksForCategories = dao.countLinksForCategories();
+		Map<Integer, Integer> result = new HashMap<>();
+		Set<Category> allCategories = getAllCategories();
+		for(Category eachCategory : allCategories) {
+			Integer categoryId = eachCategory.getCategoryId();
+			if(counterLinksForCategories.containsKey(categoryId)) {
+				result.put(categoryId, counterLinksForCategories.get(categoryId));
+			}
+			else {
+				result.put(categoryId, 0);
+			}
+		}
 		return result;
 	}
 
