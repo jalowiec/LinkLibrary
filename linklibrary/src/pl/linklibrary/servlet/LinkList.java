@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import pl.linklibrary.util.Util;
+import pl.linklibrary.controller.LibraryController;
 import pl.linklibrary.dao.CategoryDAO;
 import pl.linklibrary.dao.LinkCategoryDAO;
 import pl.linklibrary.dao.LinkDAO;
@@ -38,12 +39,14 @@ public class LinkList extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		Util util = new Util();
-		Set<Link> allLinks = util.getAllLinks();
-		Set<Category> allCategories = util.getAllCategories();
-		Map<Integer, Integer> linksForCategoryCounter = util.countLinksForAllCategories();
+		
 		String[] chosenFormsCategories = request.getParameterValues("chosenCategories");
+
+		LibraryController lc = new LibraryController();
+		Set<Link> allLinks = lc.getAllLinks();
+		Set<Category> allCategories = lc.getAllCategories();
+		Map<Integer, Integer> linksForCategoryCounter = lc.countLinksForAllCategories();
+		int[] 
 		Set<Integer> chosenCategories = null;
 		if (chosenFormsCategories != null) {
 			chosenCategories = convertStringToIntSet(chosenFormsCategories);
@@ -53,7 +56,8 @@ public class LinkList extends HttpServlet {
 		request.setAttribute("chosenCategories", chosenCategories);
 		request.setAttribute("allCategories", allCategories);
 		request.setAttribute("linksToDisplay", linksToDisplay);
-		request.setAttribute("linksForCategoryCounter", linksForCategoryCounter);		
+		request.setAttribute("linksForCategoryCounter", linksForCategoryCounter);	
+		
 		request.getRequestDispatcher("linklist.jsp").forward(request, response);
 
 	}

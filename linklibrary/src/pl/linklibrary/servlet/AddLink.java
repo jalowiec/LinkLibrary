@@ -1,8 +1,6 @@
 package pl.linklibrary.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pl.linklibrary.dao.LinkDAO;
+import pl.linklibrary.controller.LibraryController;
 import pl.linklibrary.model.Link;
 
 
@@ -32,23 +30,18 @@ public class AddLink extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Link link = linkToAddFromRequest(request);
-		LinkDAO dao = new LinkDAO();
-		dao.create(link);
+		Link link = new Link(request.getParameter("name"),
+							 request.getParameter("description"),
+							 request.getParameter("url"));
+		
+		LibraryController lc = new LibraryController();
+		lc.AddLink(link);
+		
 		response.sendRedirect("LinkList");
 	}
 
 	
-	protected static Link linkToAddFromRequest(HttpServletRequest request) {
 
-		String linkName = request.getParameter("name");
-		String description = request.getParameter("description");
-		String url = request.getParameter("url");
-		Link link = new Link(linkName, description, url);
-
-		return link;
-
-	}
 	
 
 	/**

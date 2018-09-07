@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pl.linklibrary.dao.LinkDAO;
+import pl.linklibrary.controller.LibraryController;
+
 
 /**
  * Servlet implementation class DeleteLink
@@ -28,8 +29,10 @@ public class DeleteLink extends HttpServlet {
 			throws ServletException, IOException {
 
 		int linkId = Integer.parseInt(request.getParameter("link_id"));
-		LinkDAO dao = new LinkDAO();
-		dao.delete(linkId);
+		
+		LibraryController lc = new LibraryController();
+		lc.deleteLink(linkId);		
+
 		response.sendRedirect("LinkList");
 	}	
 

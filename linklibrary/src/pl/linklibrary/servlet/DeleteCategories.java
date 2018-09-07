@@ -1,15 +1,17 @@
 package pl.linklibrary.servlet;
 
 import java.io.IOException;
+import java.util.Arrays;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pl.linklibrary.dao.CategoryDAO;
-import pl.linklibrary.dao.LinkDAO;
-import pl.linklibrary.util.Util;
+import pl.linklibrary.controller.LibraryController;
+
+
 
 /**
  * Servlet implementation class DeleteCategories
@@ -30,10 +32,11 @@ public class DeleteCategories extends HttpServlet {
 			throws ServletException, IOException {
 
 		String[] categoriesFromModal = request.getParameterValues("categories");
-		Util util = new Util();
-		int[] categories = util.convertArray(categoriesFromModal);
-		CategoryDAO dao = new CategoryDAO();
-		dao.delete(categories);
+	
+		LibraryController lc = new LibraryController();
+		int[] categories = Arrays.stream(categoriesFromModal).mapToInt(Integer::parseInt).toArray();
+		lc.deleteCategories(categories);
+		
 		response.sendRedirect("LinkList");
 	}	
     

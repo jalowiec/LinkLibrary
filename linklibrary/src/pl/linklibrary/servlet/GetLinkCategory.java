@@ -1,12 +1,7 @@
 package pl.linklibrary.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pl.linklibrary.util.Util;
+import pl.linklibrary.controller.LibraryController;
 import pl.linklibrary.dao.CategoryDAO;
 import pl.linklibrary.dao.LinkCategoryDAO;
 import pl.linklibrary.model.Category;
@@ -42,9 +37,10 @@ public class GetLinkCategory extends HttpServlet {
 		
 		String linkUrl = request.getParameter("link_url");
 		int linkId = Integer.parseInt(request.getParameter("link_id"));
-		Util util = new Util();
-		Set<Category> categories = util.getAllCategories();
-		Set<Integer> linkCategories = util.getCategoriesIdForLink(linkId);
+		
+		LibraryController lc = new LibraryController();
+		Set<Category> categories = lc.getAllCategories();
+		Set<Integer> linkCategories = lc.getCategoriesIdForLink(linkId);
 
 		request.setAttribute("categories", categories);
 		request.setAttribute("linkCategories", linkCategories);

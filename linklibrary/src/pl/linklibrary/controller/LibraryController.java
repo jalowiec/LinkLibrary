@@ -1,10 +1,8 @@
-package pl.linklibrary.util;
+package pl.linklibrary.controller;
 
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import pl.linklibrary.dao.CategoryDAO;
 import pl.linklibrary.dao.LinkCategoryDAO;
@@ -12,8 +10,31 @@ import pl.linklibrary.dao.LinkDAO;
 import pl.linklibrary.model.Category;
 import pl.linklibrary.model.Link;
 
-public class Util {
+public class LibraryController {
 
+	public boolean AddCategory(String category) {
+		category = category.toLowerCase();
+		CategoryDAO dao = new CategoryDAO();
+		return dao.create(category);
+	}
+
+	public boolean AddLink(Link link) {
+		LinkDAO dao = new LinkDAO();
+		return dao.create(link);
+	}
+	
+	public boolean deleteCategories(int[] categories) {
+		CategoryDAO dao = new CategoryDAO();
+		return dao.delete(categories);		
+	}
+	
+	public boolean deleteLink(int link) {
+		LinkDAO dao = new LinkDAO();
+		return dao.delete(link);
+
+		
+	}
+	
 	public Set<Category> getAllCategories() {
 		CategoryDAO dao = new CategoryDAO();
 		Set<Category>results = dao.readAll(0);
@@ -47,20 +68,6 @@ public class Util {
 			}
 		}
 		return result;
-	}
-
-	public int[] convertArray(String[] array) {
-		if (array == null) {
-			return null;
-		} else {
-			int[] result = new int[array.length];
-			int i = 0;
-			for (String eachElement : array) {
-				result[i++] = Integer.parseInt(eachElement);
-			}
-
-			return result;
-		}
 	}
 
 }

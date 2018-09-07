@@ -91,6 +91,7 @@ public class CategoryDAO {
 		return result;
 	}
 
+	
 	private void releaseResources(PreparedStatement prepStmt, ResultSet res, Connection conn) {
 		try {
 			if (prepStmt != null && !prepStmt.isClosed()) {

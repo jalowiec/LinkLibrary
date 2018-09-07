@@ -7,9 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pl.linklibrary.dao.CategoryDAO;
-import pl.linklibrary.dao.LinkDAO;
-import pl.linklibrary.model.Link;
+import pl.linklibrary.controller.LibraryController;
+
 
 /**
  * Servlet implementation class AddCategory
@@ -30,11 +29,14 @@ public class AddCategory extends HttpServlet {
 			throws ServletException, IOException {
 
 		String category = request.getParameter("category");
-		category.toLowerCase();
-		CategoryDAO dao = new CategoryDAO();
-		dao.create(category);		
+		
+		LibraryController lc = new LibraryController();
+		lc.AddCategory(category);		
+		
 		response.sendRedirect("LinkList");
 	}
+
+
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
