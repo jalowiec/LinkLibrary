@@ -31,7 +31,7 @@ public class AddCategory extends HttpServlet {
 		String category = request.getParameter("category");
 		
 		LibraryController lc = new LibraryController();
-		lc.AddCategory(category);		
+		lc.addCategory(category);		
 		
 		response.sendRedirect("LinkList");
 	}

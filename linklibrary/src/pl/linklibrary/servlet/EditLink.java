@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import pl.linklibrary.controller.LibraryController;
 import pl.linklibrary.dao.LinkDAO;
 import pl.linklibrary.model.Link;
 
@@ -31,8 +32,9 @@ public class EditLink extends HttpServlet {
 			throws ServletException, IOException {
 
 		Link link = linkToEditFromRequest(request); 
-		LinkDAO dao = new LinkDAO();
-		dao.update(link);
+		LibraryController lc = new LibraryController();
+		lc.editLink(link);
+		
 		response.sendRedirect("LinkList");
 
 	}	
@@ -43,9 +45,7 @@ public class EditLink extends HttpServlet {
 		String description = request.getParameter("description");
 		String url = request.getParameter("url");
 		int url_id = Integer.parseInt(request.getParameter("link_id"));
-		Link link = new Link(url_id, linkName, description, url);
-		
-		return link;
+		return  new Link(url_id, linkName, description, url);
 
 	}    
     

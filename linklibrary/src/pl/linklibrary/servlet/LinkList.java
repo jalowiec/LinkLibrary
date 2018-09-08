@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pl.linklibrary.util.Util;
+
 import pl.linklibrary.controller.LibraryController;
 import pl.linklibrary.dao.CategoryDAO;
 import pl.linklibrary.dao.LinkCategoryDAO;
@@ -40,18 +40,12 @@ public class LinkList extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String[] chosenFormsCategories = request.getParameterValues("chosenCategories");
+		String[] chosenCategories = request.getParameterValues("chosenCategories");
 
 		LibraryController lc = new LibraryController();
-		Set<Link> allLinks = lc.getAllLinks();
-		Set<Category> allCategories = lc.getAllCategories();
+		Set<Category> allCategories = lc.getAllCategories();		
+		Set<Link> linksToDisplay = lc.getLinksToDisplay(chosenCategories);
 		Map<Integer, Integer> linksForCategoryCounter = lc.countLinksForAllCategories();
-		int[] 
-		Set<Integer> chosenCategories = null;
-		if (chosenFormsCategories != null) {
-			chosenCategories = convertStringToIntSet(chosenFormsCategories);
-		}
-		Set<Link> linksToDisplay = getLinksToDisplay(allLinks, chosenCategories);
 		
 		request.setAttribute("chosenCategories", chosenCategories);
 		request.setAttribute("allCategories", allCategories);
@@ -62,31 +56,6 @@ public class LinkList extends HttpServlet {
 
 	}
 
-	private Set<Link> getLinksToDisplay(Set<Link> allLinks, Set<Integer> chosenCategories) {
-		Set<Link> results = new LinkedHashSet<>();
-		Util util = new Util();
-		if (chosenCategories == null) {
-			return allLinks;
-		} else {
-			for (Link eachLink : allLinks) {
-				Set<Integer> linkCategories = util.getCategoriesIdForLink(eachLink.getId());
-				if (linkCategories.containsAll(chosenCategories)) {
-					results.add(eachLink);
-				}
-
-			}
-			return results;
-		}
-	}
-
-	private Set<Integer> convertStringToIntSet(String[] table) {
-		Set<Integer> result = new HashSet<>();
-		for (String eachElement : table) {
-			result.add(Integer.parseInt(eachElement));
-		}
-
-		return result;
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse

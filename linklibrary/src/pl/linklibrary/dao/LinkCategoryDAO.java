@@ -19,9 +19,10 @@ public class LinkCategoryDAO {
 	private final static String CREATE = "INSERT INTO link_category(link_id, category_id) VALUES(?, ?);";
 	private final static String DELETE = "DELETE FROM link_category WHERE link_id=?;";
 	private final static String READ_CATEGORY = "SELECT category_id FROM link_category WHERE link_id = ?;";
+	private final static String READ_LINK = "SELECT link_id FROM link_category WHERE category_id = ?;";	
 	private final static String READ_ALL = "SELECT link_id, category_id FROM link_category";
 
-	public Set<Integer> readLinkCategories(int id) {
+	public Set<Integer> readCategories(int id) {
 
 		Set<Integer> categorySet = new HashSet<>();
 		Connection conn = null;
@@ -42,6 +43,29 @@ public class LinkCategoryDAO {
 		}
 		return categorySet;
 	}
+	
+	public Set<Integer> readLinks(int id) {
+
+		Set<Integer> linkSet = new HashSet<>();
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet resultSet = null;
+		try {
+			conn = ConnectionProvider.getConnection();
+			prepStmt = conn.prepareStatement(READ_LINK);
+			prepStmt.setInt(1, id);
+			resultSet = prepStmt.executeQuery();
+			while (resultSet.next()) {
+				linkSet.add(resultSet.getInt("link_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			releaseResources(prepStmt, resultSet, conn);
+		}
+		return linkSet;
+	}
+	
 
 	public Map<Integer, Integer> countLinksForCategories() {
 		Map<Integer, Integer> result = new HashMap<>();

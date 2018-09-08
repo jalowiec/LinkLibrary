@@ -35,7 +35,7 @@ public class AddLink extends HttpServlet {
 							 request.getParameter("url"));
 		
 		LibraryController lc = new LibraryController();
-		lc.AddLink(link);
+		lc.addLink(link);
 		
 		response.sendRedirect("LinkList");
 	}

@@ -40,7 +40,7 @@ public class GetLinkCategory extends HttpServlet {
 		
 		LibraryController lc = new LibraryController();
 		Set<Category> categories = lc.getAllCategories();
-		Set<Integer> linkCategories = lc.getCategoriesIdForLink(linkId);
+		Set<Integer> linkCategories = lc.getCategoriesForLink(linkId);
 
 		request.setAttribute("categories", categories);
 		request.setAttribute("linkCategories", linkCategories);
